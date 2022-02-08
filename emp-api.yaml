@@ -1,0 +1,41 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: employee-api
+  labels:
+    app: save-employee
+spec:
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app: save-employee
+  template:
+    metadata:
+      labels:
+        app: save-employee
+        tier: compute
+    spec:
+      containers:
+        - image: de.icr.io/demo-cpawar/employee-api
+          imagePullPolicy: Always
+          name: employee-api
+          env:
+            - name: CLOUDANT_URL
+              valueFrom:
+                secretKeyRef:
+                  name: binding-cloudant-demo
+                  key: url
+            - name: CLOUDANT_DB_USER
+              valueFrom:
+                secretKeyRef:
+                  name: binding-cloudant-demo
+                  key: username
+            - name: CLOUDANT_DB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: binding-cloudant-demo
+                  key: password
+          ports:
+            - containerPort: 8080
