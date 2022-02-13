@@ -17,7 +17,7 @@ public class EmpRepo {
 	 public Employee saveEmployee(Employee emp){
 		 Database db = cloudantClient.database(CLOUDANT_DB, true);
 		 db.save(emp);
-		 System.out.println("Saved employee details >>>>>>>>"+emp.toString());
+		 System.out.println("Saved employee details >>>>>>>>"+emp.toString() );
 		return emp;
 	    }
 
