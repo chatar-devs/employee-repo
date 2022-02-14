@@ -1,6 +1,7 @@
 package officespace.repo;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import com.cloudant.client.api.CloudantClient;
@@ -12,11 +13,12 @@ import officespace.model.Employee;
 public class EmpRepo {
 	@Autowired
 	private CloudantClient cloudantClient;
-	private static final String CLOUDANT_DB = "demo1";
+	@Value( "${dbname}" )
+	private static String CLOUDANT_DB;
 	    
 	 public Employee saveEmployee(Employee emp){
 		 Database db = cloudantClient.database(CLOUDANT_DB, true);
-		 System.out.println("Before saving employee details >>>>>>>>"+emp.toString() );
+		 System.out.println("Saving employee details in DB >>>>>>>>"+CLOUDANT_DB );
 		 db.save(emp);
 		 System.out.println("Saved employee details >>>>>>>>"+emp.toString() );
 		return emp;

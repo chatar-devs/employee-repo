@@ -34,6 +34,11 @@ spec:
                 secretKeyRef:
                   name: binding-cloudant-demo
                   key: password
+            - name: DB_NAME
+              valueFrom:
+                secretKeyRef:
+                  name: db-config
+                  key: dbname
           ports:
             - containerPort: 8080
 ---
