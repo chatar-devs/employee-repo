@@ -13,8 +13,9 @@ import officespace.model.Employee;
 public class EmpRepo {
 	@Autowired
 	private CloudantClient cloudantClient;
-	@Value( "${dbname}" )
-	private static String CLOUDANT_DB;
+	
+	@Value("${dbname}")
+	private String CLOUDANT_DB;
 	    
 	 public Employee saveEmployee(Employee emp){
 		 Database db = cloudantClient.database(CLOUDANT_DB, true);

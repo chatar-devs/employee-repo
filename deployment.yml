@@ -19,6 +19,12 @@ spec:
         - image: employee-api
           name: employee-api
           env:
+            - name: DB_NAME
+              valueFrom:
+                configMapKeyRef:
+                  name: db-config
+                  key: dbname
+                  
             - name: CLOUDANT_URL
               valueFrom:
                 secretKeyRef:
@@ -34,11 +40,6 @@ spec:
                 secretKeyRef:
                   name: binding-cloudant-demo
                   key: password
-            - name: DB_NAME
-              valueFrom:
-                configMapKeyRef:
-                  name: db-config
-                  key: dbname
           ports:
             - containerPort: 8080
 ---
